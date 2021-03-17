@@ -23,7 +23,14 @@ const CategoryMealsScreen = (props: Props) => {
         complexity={item.complexity}
         duration={item.duration}
         title={item.title}
-        onSelectMeal={() => {}}
+        onSelectMeal={() => {
+          props.navigation.navigate({
+            routeName: 'MealDetail',
+            params: {
+              mealId: item.id
+            }
+          })
+        }}
       />
     );
   };
@@ -48,7 +55,8 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: 10
   }
 });
 export default CategoryMealsScreen;
