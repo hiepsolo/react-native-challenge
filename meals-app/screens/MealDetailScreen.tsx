@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { ScreenProps } from 'react-native-screens';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { NavigationStackOptions } from 'react-navigation-stack';
 import { StackNavigationProp } from 'react-navigation-stack/lib/typescript/src/vendor/types';
+import HeaderButton from '../components/HeaderButton';
 import { MEALS } from '../data/dummy-data';
 import Meal from '../models/meal';
 
@@ -18,7 +20,7 @@ const MealDetailScreen = (props: Props) => {
     <View style={styles.screen}>
       <Text>The Meal Detail Screen</Text>
       <Button
-        title="Go Back to Categories"
+        title='Go Back to Categories'
         onPress={() => {
           props.navigation.popToTop();
         }}
@@ -27,14 +29,23 @@ const MealDetailScreen = (props: Props) => {
   );
 };
 
-MealDetailScreen.navigationOptions = (
-  navigationData: Props
-): NavigationStackOptions => {
+MealDetailScreen.navigationOptions = (navigationData: Props): NavigationStackOptions => {
   const mealId = navigationData.navigation.getParam('mealId');
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
   return {
     headerTitle: selectedMeal?.title,
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title='Favorite'
+          iconName='ios-star'
+          onPress={() => {
+            console.log('Mark as favorite');
+          }}
+        />
+      </HeaderButtons>
+    )
   };
 };
 
@@ -44,6 +55,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-  },
+    alignItems: 'center'
+  }
 });
