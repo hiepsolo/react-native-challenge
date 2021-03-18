@@ -9,6 +9,10 @@ const FiltersScreen = () => {
     );
 };
 
+FiltersScreen.navigationOptions = {
+  headerTitle: 'Filter Meals'
+}
+
 export default FiltersScreen;
 
 const styles = StyleSheet.create({
